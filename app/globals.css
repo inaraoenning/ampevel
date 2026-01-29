@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Ampevel Brand Colors */
+  --ampevel-navy: #003366;
+  --ampevel-blue: #0099cc;
+  --ampevel-red: #33608d;
+  --ampevel-light-blue: #4db8e8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Custom Ampevel Colors */
+  --color-ampevel-navy: var(--ampevel-navy);
+  --color-ampevel-blue: var(--ampevel-blue);
+  --color-ampevel-red: var(--ampevel-red);
+  --color-ampevel-light-blue: var(--ampevel-light-blue);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
