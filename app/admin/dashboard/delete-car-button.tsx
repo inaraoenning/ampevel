@@ -15,7 +15,8 @@ export function DeleteCarButton({ car }: { car: Car }) {
         try {
             // Deletar imagens do storage
             if (car.images.length > 0) {
-                await storageService.deleteCarImages(car.images)
+                const imageUrls = car.images.map((img) => img.url)
+                await storageService.deleteCarImages(imageUrls)
             }
             // Deletar registro do banco
             await deleteCar(car.id)
