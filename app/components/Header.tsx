@@ -12,7 +12,7 @@ export default function Header() {
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                         <Link href="/" className="flex items-center group">
                             <Image
                                 src="/logo.png"
@@ -30,7 +30,7 @@ export default function Header() {
                     <div className="hidden md:flex items-center gap-4">
                         <Link
                             href="/admin/login"
-                            className="px-6 py-2.5 bg-gradient-to-r from-[#003366] to-[#0099CC] hover:from-[#002244] hover:to-[#007799] text-white rounded-full font-medium transform transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30"
+                            className="px-6 py-2.5 bg-linear-to-r from-[#003366] to-[#0099CC] hover:from-[#002244] hover:to-[#007799] text-white rounded-full font-medium transform transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30"
                         >
                             Login Administrativo
                         </Link>
@@ -101,7 +101,7 @@ export default function Header() {
                             </Link>
                             <Link
                                 href="/admin/login"
-                                className="mt-2 mx-4 px-4 py-2.5 bg-gradient-to-r from-[#003366] to-[#0099CC] text-white rounded-full font-medium text-center"
+                                className="mt-2 mx-4 px-4 py-2.5 bg-linear-to-r from-[#003366] to-[#0099CC] text-white rounded-full font-medium text-center"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Entrar
