@@ -1,10 +1,17 @@
 import { createServerClient } from '@supabase/ssr'
 import { type NextRequest, NextResponse } from 'next/server'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 export const updateSession = async (request: NextRequest) => {
+    // Se variáveis de ambiente não estiverem configuradas, passa adiante
+    if (!supabaseUrl || !supabaseKey) {
+        return NextResponse.next({
+            request,
+        })
+    }
+
     let supabaseResponse = NextResponse.next({
         request,
     })
