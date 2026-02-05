@@ -14,6 +14,16 @@ export const updateSession = async (request: NextRequest) => {
             })
         }
 
+        // Log only lengths to avoid exposing secrets in logs — helps debug env availability
+        try {
+            console.info('Supabase env presence:', {
+                urlLength: url?.length ?? 0,
+                keyLength: key?.length ?? 0,
+            })
+        } catch (e) {
+            // ignore logging errors
+        }
+
         let supabaseResponse = NextResponse.next({
             request,
         })
