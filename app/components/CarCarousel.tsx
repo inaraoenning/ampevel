@@ -58,14 +58,18 @@ export default function CarCarousel({ cars }: CarCarouselProps) {
                         >
                             {cars.map((car) => (
                                 <div key={car.id} className="min-w-full">
-                                    <div className="relative aspect-[16/9] bg-gradient-to-br from-gray-100 to-gray-200">
-                                        {car.images[0] && (
+                                    <div className="relative aspect-[video] bg-linear-to-br from-gray-100 to-gray-200">
+                                        {Array.isArray(car.images) && car.images.length > 0 ? (
                                             <Image
                                                 src={car.images[0]}
                                                 alt={car.title}
                                                 fill
                                                 className="object-cover"
                                             />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                                Imagem indisponível
+                                            </div>
                                         )}
                                     </div>
 

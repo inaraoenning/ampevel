@@ -44,13 +44,17 @@ export default function CarGrid({ cars }: CarGridProps) {
                         >
                             {/* Car Image */}
                             <div className="relative h-56 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-                                {car.images[0] && (
+                                {Array.isArray(car.images) && car.images.length > 0 ? (
                                     <Image
                                         src={car.images[0]}
                                         alt={car.title}
                                         fill
                                         className="object-cover hover:scale-110 transition-transform duration-500"
                                     />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                        Imagem indisponível
+                                    </div>
                                 )}
                                 <div className="absolute top-4 right-4">
                                     <span className="px-3 py-1 bg-[#0099CC] text-white text-sm font-semibold rounded-full">

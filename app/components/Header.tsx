@@ -29,7 +29,7 @@ export default function Header() {
                     {/* CTA Button */}
                     <div className="hidden md:flex items-center gap-4">
                         <Link
-                            href="/login"
+                            href="/admin/login"
                             className="px-6 py-2.5 bg-gradient-to-r from-[#003366] to-[#0099CC] hover:from-[#002244] hover:to-[#007799] text-white rounded-full font-medium transform transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30"
                         >
                             Login Administrativo
@@ -100,7 +100,7 @@ export default function Header() {
                                 Contato
                             </Link>
                             <Link
-                                href="/login"
+                                href="/admin/login"
                                 className="mt-2 mx-4 px-4 py-2.5 bg-gradient-to-r from-[#003366] to-[#0099CC] text-white rounded-full font-medium text-center"
                                 onClick={() => setIsMenuOpen(false)}
                             >
