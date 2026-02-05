@@ -5,53 +5,62 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 export const updateSession = async (request: NextRequest) => {
-    // Se variáveis de ambiente não estiverem configuradas, passa adiante
-    if (!supabaseUrl || !supabaseKey) {
+    try {
+        // Se variáveis de ambiente não estiverem configuradas, passa adiante
+        if (!supabaseUrl || !supabaseKey) {
+            return NextResponse.next({
+                request,
+            })
+        }
+
+        let supabaseResponse = NextResponse.next({
+            request,
+        })
+
+        const supabase = createServerClient(
+            supabaseUrl,
+            supabaseKey,
+            {
+                cookies: {
+                    getAll() {
+                        return request.cookies.getAll()
+                    },
+                    setAll(cookiesToSet) {
+                        cookiesToSet.forEach(({ name, value }) =>
+                            request.cookies.set(name, value)
+                        )
+                        supabaseResponse = NextResponse.next({
+                            request,
+                        })
+                        cookiesToSet.forEach(({ name, value, options }) =>
+                            supabaseResponse.cookies.set(name, value, options)
+                        )
+                    },
+                },
+            }
+        )
+
+        // Importante: isso irá atualizar os cookies no request
+        const {
+            data: { user },
+        } = await supabase.auth.getUser()
+
+        // Redirecionar para login se tentar acessar área admin sem autenticação
+        if (request.nextUrl.pathname.startsWith('/admin') &&
+            !request.nextUrl.pathname.startsWith('/admin/login') &&
+            !user) {
+            const url = request.nextUrl.clone()
+            url.pathname = '/admin/login'
+            return NextResponse.redirect(url)
+        }
+
+        return supabaseResponse
+    } catch (error) {
+        // Se algo der errado no middleware, apenas passa adiante
+        console.error('Middleware error:', error)
         return NextResponse.next({
             request,
         })
     }
-
-    let supabaseResponse = NextResponse.next({
-        request,
-    })
-
-    const supabase = createServerClient(
-        supabaseUrl,
-        supabaseKey,
-        {
-            cookies: {
-                getAll() {
-                    return request.cookies.getAll()
-                },
-                setAll(cookiesToSet) {
-                    cookiesToSet.forEach(({ name, value }) =>
-                        request.cookies.set(name, value)
-                    )
-                    supabaseResponse = NextResponse.next({
-                        request,
-                    })
-                    cookiesToSet.forEach(({ name, value, options }) =>
-                        supabaseResponse.cookies.set(name, value, options)
-                    )
-                },
-            },
-        }
-    )
-
-    // Importante: isso irá atualizar os cookies no request
-    const {
-        data: { user },
-    } = await supabase.auth.getUser()
-
-    // Redirecionar para login se tentar acessar área admin sem autenticação
-    if (request.nextUrl.pathname.startsWith('/admin') &&
-        !request.nextUrl.pathname.startsWith('/admin/login') &&
-        !user) {
-        const url = request.nextUrl.clone()
-        url.pathname = '/admin/login'
-        return NextResponse.redirect(url)
-    }
-
-    return supabaseResponse
+}
 }
