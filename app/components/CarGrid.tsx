@@ -1,27 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-interface Car {
-    id: string;
-    title: string;
-    year: number;
-    price: number;
-    km: number;
-    transmission: string;
-    fuel: string;
-    images: string[];
-    description?: string | null;
-}
+import { Car } from '@/lib/supabase/types';
 
 interface CarGridProps {
     cars: Car[];
 }
 
 export default function CarGrid({ cars }: CarGridProps) {
-
     return (
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
             <div className="max-w-7xl mx-auto">
@@ -43,10 +30,10 @@ export default function CarGrid({ cars }: CarGridProps) {
                             className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
                         >
                             {/* Car Image */}
-                            <div className="relative h-56 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-                                {Array.isArray(car.images) && car.images.length > 0 ? (
+                            <div className="relative h-56 bg-linear-to-br from-gray-100 to-gray-200 overflow-hidden">
+                                {Array.isArray(car.images) && car.images.length > 0 && car.images[0].url ? (
                                     <Image
-                                        src={car.images[0]}
+                                        src={car.images[0].url}
                                         alt={car.title}
                                         fill
                                         className="object-cover hover:scale-110 transition-transform duration-500"
@@ -106,7 +93,7 @@ export default function CarGrid({ cars }: CarGridProps) {
                                 {/* CTA Button */}
                                 <Link
                                     href={`/veiculos/${car.id}`}
-                                    className="block w-full px-6 py-3 bg-gradient-to-r from-[#003366] to-[#0099CC] hover:from-[#002244] hover:to-[#007799] text-white text-center rounded-lg font-semibold transform transition-all hover:scale-105 hover:shadow-lg"
+                                    className="block w-full px-6 py-3 bg-linear-to-r from-[#003366] to-[#0099CC] hover:from-[#002244] hover:to-[#007799] text-white text-center rounded-lg font-semibold transform transition-all hover:scale-105 hover:shadow-lg"
                                 >
                                     Ver Detalhes
                                 </Link>

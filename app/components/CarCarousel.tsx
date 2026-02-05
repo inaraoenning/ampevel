@@ -2,14 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-
-interface Car {
-    id: string;
-    title: string;
-    year: number;
-    price: number;
-    images: string[];
-}
+import { Car } from '@/lib/supabase/types';
 
 interface CarCarouselProps {
     cars: Car[];
@@ -59,9 +52,9 @@ export default function CarCarousel({ cars }: CarCarouselProps) {
                             {cars.map((car) => (
                                 <div key={car.id} className="min-w-full">
                                     <div className="relative aspect-[video] bg-linear-to-br from-gray-100 to-gray-200">
-                                        {Array.isArray(car.images) && car.images.length > 0 ? (
+                                        {Array.isArray(car.images) && car.images.length > 0 && car.images[0].url ? (
                                             <Image
-                                                src={car.images[0]}
+                                                src={car.images[0].url}
                                                 alt={car.title}
                                                 fill
                                                 className="object-cover"

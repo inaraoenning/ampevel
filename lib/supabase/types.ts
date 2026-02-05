@@ -1,3 +1,21 @@
+export type PhotoSlot =
+    | 'front'
+    | 'rear'
+    | 'left'
+    | 'right'
+    | 'engine'
+    | 'interior_driver'
+    | 'interior_passenger'
+    | 'trunk'
+
+export interface CarImage {
+    url: string
+    slot?: PhotoSlot | null
+    order?: number
+    isPrimary?: boolean
+    uploadedAt?: string
+}
+
 export interface Car {
     id: string
     title: string
@@ -7,10 +25,11 @@ export interface Car {
     transmission: string
     fuel: string
     description: string | null
-    images: string[]
+    images: CarImage[]
     created_at: string
     updated_at: string
 }
+
 export interface CarInsert {
     title: string
     price: number
@@ -19,5 +38,5 @@ export interface CarInsert {
     transmission: string
     fuel: string
     description?: string
-    images: string[]
+    images: CarImage[]
 }
