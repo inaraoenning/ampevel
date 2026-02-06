@@ -1,6 +1,6 @@
 'use server'
 
-import { createClient } from '@/utils/supabase/server'
+import { createClient, createServiceClient } from '@/utils/supabase/server'
 
 const BUCKET_NAME = 'car-images'
 
@@ -8,7 +8,8 @@ export async function uploadCarImage(
     file: File,
     carId?: string
 ): Promise<string> {
-    const supabase = await createClient()
+    // Use service-role client for storage operations to avoid RLS denying inserts
+    const supabase = createServiceClient()
 
     const fileName = `${carId || 'temp'}/${Date.now()}-${Math.random().toString(36).substring(7)}.webp`
 
@@ -35,7 +36,7 @@ export async function uploadCarImage(
 
         const {
             data: { publicUrl },
-        } = supabase.storage.from(BUCKET_NAME).getPublicUrl(fileName)
+        } = await createClient().then(s => s.storage.from(BUCKET_NAME).getPublicUrl(fileName))
 
         return publicUrl
     } catch (err) {
@@ -46,7 +47,8 @@ export async function uploadCarImage(
 }
 
 export async function deleteCarImage(imageUrl: string): Promise<void> {
-    const supabase = await createClient()
+    // Use service-role client for delete operations
+    const supabase = createServiceClient()
     const path = imageUrl.split(`${BUCKET_NAME}/`)[1]
 
     if (!path) throw new Error('Invalid image URL')
