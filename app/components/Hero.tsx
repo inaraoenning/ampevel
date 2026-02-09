@@ -24,7 +24,7 @@ export default function Hero() {
                         <div className="pt-4">
                             <Link
                                 href="/veiculos"
-                                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#003366] to-[#0099CC] hover:from-[#002244] hover:to-[#007799] text-white rounded-lg font-semibold transform transition-all hover:scale-105 hover:shadow-xl hover:shadow-blue-500/30"
+                                className="inline-flex items-center gap-2 px-8 py-4 bg-linear-to-r from-[#003366] to-[#0099CC] hover:from-[#002244] hover:to-[#007799] text-white rounded-lg font-semibold transform transition-all hover:scale-105 hover:shadow-xl hover:shadow-blue-500/30"
                             >
                                 <svg
                                     className="w-5 h-5"
@@ -48,7 +48,7 @@ export default function Hero() {
                     <div className="relative">
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.02]">
                             <Image
-                                src="/hero_sports_car.png"
+                                src="placeholder-image.jpg"
                                 alt="Carro esportivo branco de luxo em ambiente urbano"
                                 width={800}
                                 height={600}

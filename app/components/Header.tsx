@@ -15,7 +15,7 @@ export default function Header() {
                     <div className="shrink-0">
                         <Link href="/" className="flex items-center group">
                             <Image
-                                src="/logo.png"
+                                src=""
                                 alt="Ampevel Veículos Logo"
                                 width={180}
                                 height={60}
