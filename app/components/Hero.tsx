@@ -48,7 +48,7 @@ export default function Hero() {
                     <div className="relative">
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.02]">
                             <Image
-                                src="placeholder-image.jpg"
+                                src="/hero_sports_car.png"
                                 alt="Carro esportivo branco de luxo em ambiente urbano"
                                 width={800}
                                 height={600}
