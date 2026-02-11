@@ -55,7 +55,7 @@ export default async function AdminDashboard() {
                             >
                                 {car.images[0] && (
                                     <img
-                                        src={car.images[0]}
+                                        src={typeof car.images[0] === 'string' ? car.images[0] : car.images[0].url}
                                         alt={car.title}
                                         className="w-full h-48 object-cover"
                                     />
