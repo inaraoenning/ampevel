@@ -7,7 +7,7 @@ export async function getCars() {
     const supabase = await createClient()
 
     const { data, error } = await supabase
-        .from('cars')
+        .from('car-images')
         .select('*')
         .order('created_at', { ascending: false })
     if (error) throw error
@@ -17,7 +17,7 @@ export async function getCarById(id: string) {
     const supabase = await createClient()
 
     const { data, error } = await supabase
-        .from('cars')
+        .from('car-images')
         .select('*')
         .eq('id', id)
         .single()
@@ -28,7 +28,7 @@ export async function createCar(car: CarInsert) {
     const supabase = await createClient()
 
     const { data, error } = await supabase
-        .from('cars')
+        .from('car-images')
         .insert(car)
         .select()
         .single()
@@ -41,7 +41,7 @@ export async function updateCar(id: string, updates: Partial<CarInsert>) {
     const supabase = await createClient()
 
     const { data, error } = await supabase
-        .from('cars')
+        .from('car-images')
         .update({ ...updates, updated_at: new Date().toISOString() })
         .eq('id', id)
         .select()
@@ -55,7 +55,7 @@ export async function deleteCar(id: string) {
     const supabase = await createClient()
 
     const { error } = await supabase
-        .from('cars')
+        .from('car-images')
         .delete()
         .eq('id', id)
     if (error) throw error

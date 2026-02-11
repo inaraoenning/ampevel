@@ -27,7 +27,8 @@ export const storageService = {
         return Promise.all(uploadPromises)
     },
     // Deletar imagem
-    async deleteImage(imageUrl: string): Promise<void> {
+    async deleteImage(imageUrl: string | undefined | null): Promise<void> {
+        if (!imageUrl) return
         const supabase = createClient()
         const path = imageUrl.split(`${BUCKET_NAME}/`)[1]
         const { error } = await supabase.storage.from(BUCKET_NAME).remove([path])
