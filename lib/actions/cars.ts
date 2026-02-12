@@ -11,7 +11,20 @@ export async function getCars() {
         .select('*')
         .order('created_at', { ascending: false })
     if (error) throw error
-    return data
+
+    return data.map((car) => ({
+        ...car,
+        images: car.images.map((img: any) => {
+            if (typeof img === 'string') {
+                try {
+                    return JSON.parse(img)
+                } catch (e) {
+                    return img
+                }
+            }
+            return img
+        }),
+    }))
 }
 export async function getCarById(id: string) {
     const supabase = await createClient()
@@ -22,7 +35,20 @@ export async function getCarById(id: string) {
         .eq('id', id)
         .single()
     if (error) throw error
-    return data
+
+    return {
+        ...data,
+        images: data.images.map((img: any) => {
+            if (typeof img === 'string') {
+                try {
+                    return JSON.parse(img)
+                } catch (e) {
+                    return img
+                }
+            }
+            return img
+        }),
+    }
 }
 export async function createCar(car: CarInsert) {
     const supabase = await createClient()

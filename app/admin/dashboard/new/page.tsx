@@ -129,17 +129,6 @@ export default function CarPhotosPage() {
         setError(null);
 
         try {
-            // Validar slots obrigatórios
-            const missingSlots = PHOTO_SLOTS.filter(
-                (slot) => !images[slot.slot]
-            ).map((s) => s.label);
-
-            if (missingSlots.length > 0) {
-                throw new Error(
-                    `Fotos obrigatórias faltando: ${missingSlots.join(', ')}`
-                );
-            }
-
             // Montar array de imagens
             const allImages: CarImage[] = [
                 ...Object.values(images).filter((img) => img !== null) as CarImage[],
@@ -160,7 +149,7 @@ export default function CarPhotosPage() {
         }
     };
 
-    const missingSlots = PHOTO_SLOTS.filter((s) => !images[s.slot]).length;
+    const countFilledSlots = PHOTO_SLOTS.filter((s) => images[s.slot]).length;
 
     return (
         <div className="min-h-screen bg-gray-50 py-8">
@@ -312,10 +301,10 @@ export default function CarPhotosPage() {
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
                             <h2 className="text-xl font-semibold text-gray-900">
-                                Fotos Obrigatórias
+                                Fotos (Opcional)
                             </h2>
                             <span className="text-sm font-medium bg-blue-50 text-[#0099CC] px-3 py-1 rounded-full">
-                                {PHOTO_SLOTS.length - missingSlots} / {PHOTO_SLOTS.length}
+                                {countFilledSlots} / {PHOTO_SLOTS.length}
                             </span>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -328,7 +317,6 @@ export default function CarPhotosPage() {
                                     icon={slot.label}
                                     value={images[slot.slot]?.url}
                                     loading={uploadingSlot === slot.slot}
-                                    required
                                     onUpload={(file) =>
                                         handleSlotUpload(slot.slot, file)
                                     }
@@ -357,10 +345,10 @@ export default function CarPhotosPage() {
                     <div className="flex gap-4">
                         <button
                             type="submit"
-                            disabled={loading || missingSlots > 0}
+                            disabled={loading}
                             className="flex-1 px-6 py-3 bg-[#0099CC] hover:bg-[#007799] disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg font-semibold transition-all"
                         >
-                            {loading ? 'Salvando...' : `Publicar Carro (${missingSlots} fotos faltando)`}
+                            {loading ? 'Salvando...' : `Publicar Carro`}
                         </button>
                         <button
                             type="button"

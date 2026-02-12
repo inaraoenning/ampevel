@@ -7,7 +7,7 @@ export default function AdminLoginPage() {
                 {/* Logo e Header */}
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                        Ampvel Admin
+                        Ampevel Admin
                     </h1>
                     <p className="text-gray-600">Faça login para gerenciar os carros</p>
                 </div>
